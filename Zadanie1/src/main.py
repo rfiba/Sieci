@@ -10,7 +10,7 @@ with open(str(sys.argv[1])) as json_data:
     d = json.load(json_data)
 for element in d['input_list']:
     print (element)
-print(d['input_list'][1])
+print ("Number of array's elements: ", len(d['input_list']))
 def sort(tab):
     swap = 1
     pom = len(tab)
