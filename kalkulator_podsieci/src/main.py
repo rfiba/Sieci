@@ -10,7 +10,23 @@ def calculateMaxNumberOfHost(address):
     return 2 ** (32 - address) - 2
 
 def calcMask(address):
-    print(0b1 + 0b1)
+    eights = int(address/8)
+
+    a = []
+    for i in range(eights):
+        a.append(255)
+
+    address = (address % 8)
+
+    a.append(1)
+    for i in range(7):
+        a[eights] = a[eights] << 1
+        if(i < address-1):
+            a[eights] += 1
+        
+    for i in range(4-len(a)):
+        a.append(0)
+    return a
 
 def checkClass(address):
     if(len(address) == 4):
@@ -45,7 +61,6 @@ def checkAddress(address):
 
     for i in range(length):
         if(address[i] > 255 or address[i] < 0):
-            print (address[i])
             return False;
 
     if (length == 5 ):
@@ -76,11 +91,7 @@ if (console):
     if(not checkAddress(ip)):
         print("Err: Wrong address")
         exit(1)
-    print(calculateMaxNumberOfHost(ip[4]))
-
-print(checkAddress(a))
-print(checkClass(a))
-
+    print(calcMask(ip[4]))
 
 
 
