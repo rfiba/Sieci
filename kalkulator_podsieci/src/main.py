@@ -5,7 +5,25 @@ import sys
 import json
 import socket
 
+def checkClass(address):
+    if(len(address) == 4):
+        tmp = address[0]
+        print (bin(tmp))
 
+        tmp = tmp >> 4
+
+        if (tmp == 0b1111): # zapytać czemu tmp & 0b1111 nie działa
+            return 'E'
+        if (tmp == 0b1110):
+            return 'D'
+        tmp >> 1
+        if (tmp == 0b110):
+            return 'C'
+        tmp >> 1
+        if (tmp == 0b10):
+            return 'B'
+        return 'A'
+    return
 
 def checkAddress(address):
     length = len(address)
@@ -41,11 +59,23 @@ else:
 
 a = ip.split(r'.')
 if (len(a) != 4):
-    print ("Err")
+    print("Err: Wrong address")
     exit(1);
 
 
 if (console):
     b = str(a[3]).split('\\')
     del a[-1]
-    print(checkAddress(a+b))
+    ip = a+b
+    if(not checkAddress(ip)):
+        print("Err: Wrong address")
+        exit(1)
+print(a)
+print(checkAddress(a))
+print(checkClass(a))
+
+
+
+
+
+
