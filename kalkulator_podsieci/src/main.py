@@ -4,7 +4,8 @@
 import sys
 import json
 import socket
-import re
+
+
 
 def checkAddress(address):
     length = len(address)
@@ -29,19 +30,22 @@ def checkAddress(address):
 
     return True;
 
+console = False
+
 if(len(sys.argv) == 1):
     ip = socket.gethostbyaddr(socket.gethostname())
-    ip = str(ip[2])
-    ip = ip.strip('[]\'')
-    ip += '\\32'
-    print("Your ip adress:", ip)
-    a = ip.split(r'.')
-    print (a)
-    #for i in range(a):
-    b = str(a[3]).split('\\')
-
-    del a[-1]
-    print (a+b)
-    print(checkAddress(a+b))
+    ip = ip[2][0]
 else:
-    print( sys.argv[1])
+    ip = sys.argv[1]
+    console = True
+
+a = ip.split(r'.')
+if (len(a) != 4):
+    print ("Err")
+    exit(1);
+
+
+if (console):
+    b = str(a[3]).split('\\')
+    del a[-1]
+    print(checkAddress(a+b))
