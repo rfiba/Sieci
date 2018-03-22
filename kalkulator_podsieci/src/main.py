@@ -23,7 +23,7 @@ def calcMask(address):
         a[eights] = a[eights] << 1
         if(i < address-1):
             a[eights] += 1
-        
+
     for i in range(4-len(a)):
         a.append(0)
     return a
@@ -69,6 +69,8 @@ def checkAddress(address):
 
     return True;
 
+#--------------------------------------------------------------------------
+
 console = False
 
 if(len(sys.argv) == 1):
@@ -85,7 +87,7 @@ if (len(a) != 4):
 
 
 if (console):
-    b = str(a[3]).split('\\')
+    b = str(a[3]).split('/')
     del a[-1]
     ip = a+b
     if(not checkAddress(ip)):
