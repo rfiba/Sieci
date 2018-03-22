@@ -5,11 +5,26 @@ import sys
 import json
 import socket
 
+def inverse(x):
+    return ~x & 0xff;
+
+def calculateBroadcastAddress(ip):
+    a = calculateMask(ip[4])
+    print(len(a))
+    for i in range(len(a)):
+        print(a[i])
+        print(bin(a[i]))
+        a[i] = inverse(a[i])
+        print(bin(a[i]))
+    for i in range(len(a)):
+        a[i] |= ip[i]
+    return a;
+
 def calculateMaxNumberOfHost(address):
     bits = 32 - address
     return 2 ** (32 - address) - 2
 
-def calcMask(address):
+def calculateMask(address):
     eights = int(address/8)
 
     a = []
@@ -93,8 +108,8 @@ if (console):
     if(not checkAddress(ip)):
         print("Err: Wrong address")
         exit(1)
-    print(calcMask(ip[4]))
-
+    print(calculateMask(ip[4]))
+    print(calculateBroadcastAddress(ip))
 
 
 
