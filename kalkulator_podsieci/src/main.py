@@ -8,16 +8,18 @@ import socket
 def inverse(x):
     return ~x & 0xff;
 
-def calculateBroadcastAddress(ip):
-    a = calculateMask(ip[4])
-    print(len(a))
+def calculateNetworkAddress(address):
+    a = calculateMask(address[4])
     for i in range(len(a)):
-        print(a[i])
-        print(bin(a[i]))
+        a[i] &= address[i]
+    return a;
+
+def calculateBroadcastAddress(address):
+    a = calculateMask(address[4])
+    for i in range(len(a)):
         a[i] = inverse(a[i])
-        print(bin(a[i]))
     for i in range(len(a)):
-        a[i] |= ip[i]
+        a[i] |= address[i]
     return a;
 
 def calculateMaxNumberOfHost(address):
@@ -110,6 +112,7 @@ if (console):
         exit(1)
     print(calculateMask(ip[4]))
     print(calculateBroadcastAddress(ip))
+    print(calculateNetworkAddress(ip))
 
 
 
