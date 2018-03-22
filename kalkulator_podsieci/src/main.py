@@ -5,45 +5,70 @@ import sys
 import json
 import socket
 
+def calculateRangeOfAdresses(address):
+    broadcastAddress = calculateBroadcastAddress(address)
+    networkAddress = calculateNetworkAddress(address)
+
+    i = 3
+    while i:
+        if (broadcastAddress[i] -1 >= 0):
+            broadcastAddress[i] -= 1
+            break;
+        i -= 1
+
+    i = 3
+    while i:
+        if (networkAddress[i] + 1 <= 255):
+            networkAddress[i] += 1
+            break;
+
+    result = []
+    result.append(broadcastAddress)
+    result.append(networkAddress)
+
+    return result;
+
 def inverse(x):
     return ~x & 0xff;
 
 def calculateNetworkAddress(address):
-    a = calculateMask(address[4])
+    result = calculateMask(address)
     for i in range(len(a)):
-        a[i] &= address[i]
-    return a;
+        result[i] &= address[i]
+    return result;
 
 def calculateBroadcastAddress(address):
-    a = calculateMask(address[4])
-    for i in range(len(a)):
-        a[i] = inverse(a[i])
-    for i in range(len(a)):
-        a[i] |= address[i]
-    return a;
+    result = calculateMask(address)
+
+    for i in range(len(result)):
+        result[i] = inverse(result[i])
+
+    for i in range(len(result)):
+        result[i] |= address[i]
+
+    return result;
 
 def calculateMaxNumberOfHost(address):
-    bits = 32 - address
-    return 2 ** (32 - address) - 2
+    return 2 ** (32 - address[4]) - 2;
 
 def calculateMask(address):
-    eights = int(address/8)
+    eights = int(address[4]/8)
 
     a = []
     for i in range(eights):
         a.append(255)
 
-    address = (address % 8)
+    tmp = (address[4] % 8)
 
     a.append(1)
     for i in range(7):
         a[eights] = a[eights] << 1
-        if(i < address-1):
+        if(i < tmp-1):
             a[eights] += 1
 
     for i in range(4-len(a)):
         a.append(0)
-    return a
+    return a;
 
 def checkClass(address):
     if(len(address) == 4):
@@ -110,10 +135,11 @@ if (console):
     if(not checkAddress(ip)):
         print("Err: Wrong address")
         exit(1)
-    print(calculateMask(ip[4]))
+    print(calculateMask(ip))
     print(calculateBroadcastAddress(ip))
     print(calculateNetworkAddress(ip))
-
+    print(calculateRangeOfAdresses(ip))
+    print(calculateMaxNumberOfHost(ip))
 
 
 
