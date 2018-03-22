@@ -5,10 +5,16 @@ import sys
 import json
 import socket
 
+def calculateMaxNumberOfHost(address):
+    bits = 32 - address
+    return 2 ** (32 - address) - 2
+
+def calcMask(address):
+    print(0b1 + 0b1)
+
 def checkClass(address):
     if(len(address) == 4):
         tmp = address[0]
-        print (bin(tmp))
 
         tmp = tmp >> 4
 
@@ -70,7 +76,8 @@ if (console):
     if(not checkAddress(ip)):
         print("Err: Wrong address")
         exit(1)
-print(a)
+    print(calculateMaxNumberOfHost(ip[4]))
+
 print(checkAddress(a))
 print(checkClass(a))
 
