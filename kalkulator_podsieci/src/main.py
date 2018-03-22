@@ -11,10 +11,21 @@ def checkAddress(address):
     if(length != 4 | length != 5):
         return False;
 
-    if(length == 5):
-        for i in range(length):
-            if (str(address[i]).isdigit() == False):
-                return False;
+    for i in range(length):
+        if (address[i].isdigit() == False):
+            return False;
+
+    for i in range(length):
+        address[i] = int(address[i])
+
+    for i in range(length):
+        if(address[i] > 255 or address[i] < 0):
+            print (address[i])
+            return False;
+
+    if (length == 5 ):
+        if(address[4] > 32 or address[4] < 0):
+            return False;
 
     return True;
 
