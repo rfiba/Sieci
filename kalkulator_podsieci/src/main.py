@@ -2,7 +2,6 @@
 
 
 import sys
-sys.path.append('~/PycharmProjects/Sieci/kalkulator_podsieci/src')
 import json
 import socket
 import functions
@@ -26,14 +25,25 @@ if (console):
     b = str(a[3]).split('/')
     del a[-1]
     ip = a+b
+
     if(not functions.checkAddress(ip)):
         print("Err: Wrong address")
         exit(1)
+
     print(functions.calculateMask(ip))
     print(functions.calculateBroadcastAddress(ip))
     print(functions.calculateNetworkAddress(ip))
     print(functions.calculateRangeOfAdresses(ip))
     print(functions.calculateMaxNumberOfHost(ip))
+    b = functions.calculateMask(ip)
+    c = functions.calculateNetworkAddress(ip)
+    print("Test ", b)
+    with open("data.json", 'w') as json_data:
+        json.dump({"ip":b}, json_data)
+        #json.dump(c, json_data)
 
+    with open("data.json") as json_dat:
+        d = json.load(json_dat)
+        print (d)
 
 
