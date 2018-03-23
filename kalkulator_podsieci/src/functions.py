@@ -49,24 +49,24 @@ def calculateMaxNumberOfHost(address):
 def calculateMask(address):
     eights = int(address[4]/8)
 
-    a = []
+    result = []
     for i in range(eights):
-        a.append(255)
+        result.append(255)
 
     tmp = (address[4] % 8)
 
-    a.append(1)
+    result.append(1)
     for i in range(7):
-        a[eights] = a[eights] << 1
+        result[eights] = result[eights] << 1
         if(i < tmp-1):
-            a[eights] += 1
+            result[eights] += 1
 
-    for i in range(4-len(a)):
-        a.append(0)
-    return a;
+    for i in range(4-len(result)):
+        result.append(0)
+    return result;
 
 def checkClass(address):
-    if(len(address) == 4):
+    if(len(address)):
         tmp = address[0]
 
         tmp = tmp >> 4
