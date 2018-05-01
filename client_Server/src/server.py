@@ -18,7 +18,7 @@ while True:
 
         while True:
             data = connection.recv(16)
-            print ('received %s' % data)
+            print ("received ",  data.decode())
             if data:
                 print ('sending data back to the client')
                 connection.sendall(data)
@@ -27,5 +27,4 @@ while True:
                 break
 
     finally:
-
         connection.close()

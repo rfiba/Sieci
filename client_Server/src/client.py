@@ -6,7 +6,8 @@ import functions as f
 
 print ("1 - show task list\n2 - add task\n3 - remove task\n4 - show tasks with priority")
 choice = input("Type number: ")
-f.numberToFunction(choice)
+message = f.numberToFunction(choice)
+
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_address = ('localhost', 10000)
@@ -18,7 +19,7 @@ sock.connect(server_address)
 
 
 try:
-    message = 'This is the message.  It will be repeated.'
+    #message = 'This is the message.  It will be repeated.'
     print ('sending %s' % message)
     sock.sendall(bytes(message, 'UTF-8'))
 
@@ -29,7 +30,7 @@ try:
     while amount_received < amount_expected:
         data = sock.recv(16)
         amount_received += len(data)
-        print ( 'received %s' % data)
+        print ("received", data.decode())
 
 finally:
     print ('closing socket')

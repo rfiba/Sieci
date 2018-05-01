@@ -24,5 +24,4 @@ def numberToFunction(argument):
         '4': showTaskWithPriority
     }
     function = switcher.get(argument, lambda: "Invalid value")
-    print (function())
-    return
+    return function()
