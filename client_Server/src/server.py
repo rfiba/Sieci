@@ -1,6 +1,6 @@
 import socket
 import sys
-
+import functions as f
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -18,7 +18,12 @@ while True:
 
         while True:
             data = connection.recv(16)
-            print ("received ",  data.decode())
+            message = data.decode()
+            print ("received ",  message)
+            message = message.split(" ")
+            f.numberToFunctionServer(message)
+
+
             if data:
                 print ('sending data back to the client')
                 connection.sendall(data)
