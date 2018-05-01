@@ -1,7 +1,7 @@
 import socket
 import sys
 
-# Create a TCP/IP socket
+
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 server_address = ('localhost', 10000)
@@ -16,10 +16,9 @@ while True:
     try:
         print('connection from', client_address)
 
-        # Receive the data in small chunks and retransmit it
         while True:
             data = connection.recv(16)
-            print ('received "%s"' % data)
+            print ('received %s' % data)
             if data:
                 print ('sending data back to the client')
                 connection.sendall(data)
@@ -28,5 +27,5 @@ while True:
                 break
 
     finally:
-        # Clean up the connection
+
         connection.close()
