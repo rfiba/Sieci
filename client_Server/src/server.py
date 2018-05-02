@@ -21,8 +21,12 @@ while True:
             message = data.decode()
             print ("received ",  message)
             message = message.split(" ")
-            f.numberToFunctionServer(message)
-
+            #print(message["0"])
+            d = f.numberToFunctionServer(message)
+            print (d)
+            if d is not None:
+                data = d['task']
+                print ("dafad")
 
             if data:
                 print ('sending data back to the client')

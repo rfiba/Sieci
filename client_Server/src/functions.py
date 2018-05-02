@@ -34,26 +34,35 @@ def numberToFunction(argument):
 
 
 def showTaskListServer(message):
-    with open("data.json") as json_data:
+    tmpDictionary = {}
+    with open("data.json", "r") as json_data:
         d = json.load(json_data)
-    return d
-
+        print()
+        for i in d:
+            print(d[i])
+        return #d
 
 def addTaskServer(message):
-    data = {}
-    data['task'] = []
-    data['task'].append({'ID':1, 'name':message[1], 'prirority':message[2]})
+    with open("data.json", "r") as json_data:
+         data = json.load(json_data)
+    print(data['0'])
+    data['0'] = data['0'] + 1
+    print(data['0'])
+    data[data['0']] = { "name":message[1], "prirority":message[2]}
     with open("data.json", 'w') as json_data:
         d = json.dump(data, json_data)
-    return
+    return {}
 
 
 def removeTaskServer(message):
-    return
+    with open("data.json", "r") as json_data:
+         data = json.load(json_data)
+    print (data.keys())
+    return {}
 
 
 def showTaskWithPriorityServer(message):
-    return
+    return {}
 
 
 def numberToFunctionServer(message):
