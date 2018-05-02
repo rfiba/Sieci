@@ -50,7 +50,7 @@ def addTaskServer(message):
     with open("data.json", "r") as json_data:
          data = json.load(json_data)
     data['0'] += 1
-    data[data['0']] = { "name":message[1], "prirority":message[2]}
+    data[data['0']] = [message[1], message[2]]
     with open("data.json", 'w') as json_data:
         d = json.dump(data, json_data)
     return
@@ -66,7 +66,17 @@ def removeTaskServer(message):
 
 
 def showTaskWithPriorityServer(message):
-    return {}
+    tmpDictionary = []
+    with open("data.json", "r") as json_data:
+         data = json.load(json_data)
+
+    for i in data:
+        if not isinstance(data.get(i), list):
+            continue
+        if data.get(i)[1] == message[1]:
+            print ("opip")
+            tmpDictionary.append(data.get(i))
+    return tmpDictionary
 
 
 def numberToFunctionServer(message):

@@ -22,8 +22,9 @@ while True:
             print ("received ",  message)
             message = message.split(" ")
             d = f.numberToFunctionServer(message)
-            data = str(d)
 
+            data = str(d)
+            print("Dadta " + data)
             if data:
                 print ('sending data back to the client')
                 connection.sendall(bytes(data, 'UTF-8'))
