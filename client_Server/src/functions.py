@@ -34,16 +34,8 @@ def numberToFunction(argument):
 
 
 def showTaskListServer(message):
-    tmpDictionary = []
     with open("data.json", "r") as json_data:
         d = json.load(json_data)
-        print(d)
-        for i in d:
-            try:
-                d[i] + 1
-            except:
-                tmpDictionary.append(str(d[i]) + ",ID:" +i)
-
         return d
 
 def addTaskServer(message):
@@ -53,20 +45,23 @@ def addTaskServer(message):
     data[data['0']] = [message[1], message[2]]
     with open("data.json", 'w') as json_data:
         d = json.dump(data, json_data)
-    return
+    return None
 
 
 def removeTaskServer(message):
     with open("data.json", "r") as json_data:
-         data = json.load(json_data)
-    del(data[message[1]])
+        data = json.load(json_data)
+    try:
+        del(data[message[1]])
+    except:
+        return
     with open("data.json", 'w') as json_data:
         d = json.dump(data, json_data)
     return
 
 
 def showTaskWithPriorityServer(message):
-    tmpDictionary = []
+    tmp = {}
     with open("data.json", "r") as json_data:
          data = json.load(json_data)
 
@@ -74,9 +69,8 @@ def showTaskWithPriorityServer(message):
         if not isinstance(data.get(i), list):
             continue
         if data.get(i)[1] == message[1]:
-            print ("opip")
-            tmpDictionary.append(data.get(i))
-    return tmpDictionary
+            tmp[i] = data.get(i)
+    return tmp
 
 
 def numberToFunctionServer(message):
@@ -88,6 +82,5 @@ def numberToFunctionServer(message):
     }
     funct = switcher.get(message[0], lambda: "Invalid value")
     return switcher[int(message[0])](message)
-    #funct(message)
 
 

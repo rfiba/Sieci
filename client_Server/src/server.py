@@ -1,6 +1,7 @@
 import socket
 import sys
 import functions as f
+import json
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -19,12 +20,15 @@ while True:
         while True:
             data = connection.recv(4096)
             message = data.decode()
+
+            if message == '':
+                break
+
             print ("received ",  message)
             message = message.split(" ")
             d = f.numberToFunctionServer(message)
 
-            data = str(d)
-            print("Dadta " + data)
+            data = json.dumps(d)
             if data:
                 print ('sending data back to the client')
                 connection.sendall(bytes(data, 'UTF-8'))
