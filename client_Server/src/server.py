@@ -17,20 +17,16 @@ while True:
         print('connection from', client_address)
 
         while True:
-            data = connection.recv(16)
+            data = connection.recv(4096)
             message = data.decode()
             print ("received ",  message)
             message = message.split(" ")
-            #print(message["0"])
             d = f.numberToFunctionServer(message)
-            print (d)
-            if d is not None:
-                data = d['task']
-                print ("dafad")
+            data = str(d)
 
             if data:
                 print ('sending data back to the client')
-                connection.sendall(data)
+                connection.sendall(bytes(data, 'UTF-8'))
             else:
                 print ('no more data from', client_address)
                 break
