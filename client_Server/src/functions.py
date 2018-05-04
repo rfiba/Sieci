@@ -21,13 +21,17 @@ def showTaskWithPriority():
     priority = input("Type priority: ")
     return "4 " + priority
 
+def close():
+    exit(0)
+    return
 
 def numberToFunction(argument):
     switcher = {
         '1': showTaskList,
         '2': addTask,
         '3': removeTask,
-        '4': showTaskWithPriority
+        '4': showTaskWithPriority,
+        '5': close
     }
     function = switcher.get(argument, lambda: "Invalid value")
     return function()
